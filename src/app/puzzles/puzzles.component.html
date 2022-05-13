@@ -1,7 +1,12 @@
 <h2>My puzzles</h2>
 <ul class="puzzles">
-    <li *ngFor="let puzzle of puzzles" (click)="onSelect(puzzle)">
+    <li *ngFor="let puzzle of puzzles">
+        <button [class.selected]="puzzle === selectedPuzzle" type="button" (click)="onSelect(puzzle)">
         <span class="badge">{{puzzle.created.toISOString().slice(0,-5).replace("T", ", ")}}</span><span class="title">{{ puzzle.title }}</span>
+        </button>
+
+        <app-puzzle-detail *ngIf="selectedPuzzle == puzzle" [puzzle]="selectedPuzzle"></app-puzzle-detail>
+    <!--
         <div *ngIf="selectedPuzzle == puzzle">
             <h2>{{selectedPuzzle.title | uppercase}} Details</h2>
             <div><span>created: </span>{{selectedPuzzle.created.toISOString().slice(0,-5).replace("T", ", ")}} (UTC)</div>
@@ -10,6 +15,7 @@
                 <input id="title" [(ngModel)]="selectedPuzzle.title" placeholder="name">
             </div>
         </div>
+    -->
     </li>
 </ul>
 

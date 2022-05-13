@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { PuzzlesComponent } from './puzzles/puzzles.component';
 
 import { FormsModule } from '@angular/forms';
+import { PuzzleDetailComponent } from './puzzle-detail/puzzle-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PuzzlesComponent
+    PuzzlesComponent,
+    PuzzleDetailComponent
   ],
   imports: [
     BrowserModule,

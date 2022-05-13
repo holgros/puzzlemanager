@@ -3,12 +3,14 @@
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
-    width: 50em;
+    /*width: 50em;*/
   }
   
+  /*
   .puzzles li {
-    /*display: flex;*/
+    display: flex;
   }
+  */
   
   .puzzles button {
     flex: 1;

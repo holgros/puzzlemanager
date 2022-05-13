@@ -62,6 +62,10 @@ export class PuzzlesComponent implements OnInit {
 
   selectedPuzzle: Puzzle;
   onSelect(puzzle: Puzzle): void {
+    if (this.selectedPuzzle == puzzle) {  // toggle
+      this.selectedPuzzle = null;
+      return;
+    }
     this.selectedPuzzle = puzzle;
   }
 
