@@ -1,9 +1,17 @@
-<div *ngIf="puzzle">
+<div class="details" *ngIf="puzzle">
     <h2>{{puzzle.title | uppercase}} Details</h2>
     <div><span>created: </span>{{puzzle.created.toISOString().slice(0,-5).replace("T", ", ")}} (UTC)</div>
     <div>
         <label for="title">Puzzle title: </label>
         <input id="title" [(ngModel)]="puzzle.title" placeholder="name">
     </div>
-    <!-- TODO: Display visualisation of puzzle -->
+    <ul class="pieces">
+        <li *ngFor="let piece of puzzle.data">
+            <button [class.selected]="piece === selectedPiece" type="button" (click)="onSelect(piece)">
+            <span class="badge">{{puzzle.data.indexOf(piece)}}</span><span class="letters">{{ piece.angles[0] }}</span>
+            </button>
+        </li>
+    </ul>
+    <app-preview [puzzle]="puzzle"></app-preview>
+
 </div>

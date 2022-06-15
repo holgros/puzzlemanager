@@ -6,12 +6,14 @@ import { PuzzlesComponent } from './puzzles/puzzles.component';
 
 import { FormsModule } from '@angular/forms';
 import { PuzzleDetailComponent } from './puzzle-detail/puzzle-detail.component';
+import { PreviewComponent } from './preview/preview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PuzzlesComponent,
-    PuzzleDetailComponent
+    PuzzleDetailComponent,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,

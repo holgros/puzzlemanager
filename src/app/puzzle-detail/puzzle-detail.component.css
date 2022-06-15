@@ -1,0 +1,10 @@
+.details {
+    position: relative;
+}
+
+app-preview {
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}

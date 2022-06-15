@@ -6,16 +6,6 @@
         </button>
 
         <app-puzzle-detail *ngIf="selectedPuzzle == puzzle" [puzzle]="selectedPuzzle"></app-puzzle-detail>
-    <!--
-        <div *ngIf="selectedPuzzle == puzzle">
-            <h2>{{selectedPuzzle.title | uppercase}} Details</h2>
-            <div><span>created: </span>{{selectedPuzzle.created.toISOString().slice(0,-5).replace("T", ", ")}} (UTC)</div>
-            <div>
-                <label for="title">Puzzle title: </label>
-                <input id="title" [(ngModel)]="selectedPuzzle.title" placeholder="name">
-            </div>
-        </div>
-    -->
     </li>
 </ul>
 
