@@ -1,5 +1,4 @@
-<p>preview works!</p>
-<p>{{ puzzle.title }}</p>
-<p>{{ puzzle.data[0].angles[0] }}</p>
-<p>{{ puzzle.data[0].terms[0] }}</p>
-<p>... or does it?</p>
+<svg id="previewSvg" [attr.width]="scale*6" [attr.height]="scale*6">
+    <polygon *ngFor="let polygonString of polygonStrings" [attr.points]="polygonString" style="fill:white;stroke:black;stroke-width:1" />
+    <text *ngFor="let i of indices" [attr.x]="points.x[i]" [attr.y]="points.y[i]" [attr.transform]="transformStringLetters[i]" fill="red" [attr.style]="styleStringLetters">{{puzzle.data[Math.floor(i/3)].angles[i%3]}}</text>
+</svg>
