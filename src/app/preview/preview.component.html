@@ -1,4 +1,4 @@
 <svg id="previewSvg" [attr.width]="scale*6" [attr.height]="scale*6">
     <polygon *ngFor="let polygonString of polygonStrings" [attr.points]="polygonString" style="fill:white;stroke:black;stroke-width:1" />
-    <text *ngFor="let i of indices" [attr.x]="points.x[i]" [attr.y]="points.y[i]" [attr.transform]="transformStringLetters[i]" fill="red" [attr.style]="styleStringLetters">{{puzzle.data[Math.floor(i/3)].angles[i%3]}}</text>
+    <text *ngFor="let i of indices" [attr.x]="points.x[i]+letterDisplacement[i].x" [attr.y]="points.y[i]+letterDisplacement[i].y" [attr.transform]="transformStringLetters[i]" fill="red" [attr.style]="styleStringLetters">{{puzzle.data[Math.floor(i/3)].angles[i%3]}}</text>
 </svg>

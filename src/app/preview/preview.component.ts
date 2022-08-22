@@ -16,7 +16,10 @@ export class PreviewComponent implements OnInit {
   points = generatePoints(this.scale);
   indices = getIndices(27);
   styleStringLetters: string = `font: ${Math.round(this.scale/5)}px sans-serif; text-anchor: middle;`;
-  transformStringLetters: string[] = generateTransformationStrings(this.points);
+  letterDisplacement = [
+    {x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},
+  ];
+  transformStringLetters: string[] = generateTransformationStrings(this);
 
   Math = Math;
   
@@ -26,7 +29,6 @@ export class PreviewComponent implements OnInit {
     for (let i = 0; i < 27; i+=3) {
       this.polygonStrings.push(`${this.points.x[i]},${this.points.y[i]} ${this.points.x[i+1]},${this.points.y[i+1]} ${this.points.x[i+2]},${this.points.y[i+2]}`);
     }
-    
   }
 
   ngOnInit(): void {
@@ -113,7 +115,9 @@ function getIndices(qty: number) {
   return output;
 }
 
-function generateTransformationStrings(points: any): string[] {
+function generateTransformationStrings(obj: any): string[] {
+  let points = obj.points;
+  let scale = obj.scale;
   let output = [];
   let degrees = [
     180, -60, 60,
@@ -127,7 +131,9 @@ function generateTransformationStrings(points: any): string[] {
     180, -60, 60,
   ];
   for (let i = 0; i < 27; i++) {
-    output.push(`rotate(${degrees[i]}, ${points.x[i]}, ${points.y[i]})`);
+    obj.letterDisplacement[i].x = Math.ceil(Math.sin(degrees[i]*Math.PI/180)*scale/12);
+    obj.letterDisplacement[i].y = -Math.ceil(Math.cos(degrees[i]*Math.PI/180)*scale/12);
+    output.push(`rotate(${degrees[i]}, ${points.x[i]+obj.letterDisplacement[i].x}, ${points.y[i]+obj.letterDisplacement[i].y})`);
   }
   return output;
 }
