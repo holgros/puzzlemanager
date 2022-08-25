@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { setClassMetadata } from '@angular/core/src/r3_symbols';
 
 import { Puzzle } from '../puzzle';
+import { PuzzleDetailComponent } from '../puzzle-detail/puzzle-detail.component';
 
 @Component({
   selector: 'app-preview',
@@ -9,7 +10,8 @@ import { Puzzle } from '../puzzle';
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
-  
+  @Input() puzzle: Puzzle;
+
   scale = Math.floor(window.innerWidth/12);
 
   polygonStrings: string[] = [];
@@ -17,14 +19,18 @@ export class PreviewComponent implements OnInit {
   indices = getIndices(27);
   styleStringLetters: string = `font: ${Math.round(this.scale/5)}px sans-serif; text-anchor: middle;`;
   letterDisplacement = [
-    {x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},
+    {x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0}
   ];
-  transformStringLetters: string[] = generateTransformationStrings(this);
+  transformStringLetters: string[] = generateTransformationStringsLetters(this);
+  
+  styleStringText: string = `font: ${Math.round(this.scale/5)}px sans-serif; text-anchor: middle;`;
 
+  textDisplacement = [
+    {x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0}
+  ];
+  transformStringText: string[] = generateTransformationStringsText(this);
   Math = Math;
   
-  @Input() puzzle: Puzzle;
-
   constructor() {
     for (let i = 0; i < 27; i+=3) {
       this.polygonStrings.push(`${this.points.x[i]},${this.points.y[i]} ${this.points.x[i+1]},${this.points.y[i+1]} ${this.points.x[i+2]},${this.points.y[i+2]}`);
@@ -34,7 +40,16 @@ export class PreviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getStyleStringText = function(text: string) {
+    if (text.length < 12) return `font: ${Math.round(this.scale/5)}px sans-serif; text-anchor: middle;`;
+    if (text.length < 24) return `font: ${Math.round(this.scale/7)}px sans-serif; text-anchor: middle;`;
+    if (text.length < 36) return `font: ${Math.round(this.scale/10)}px sans-serif; text-anchor: middle;`;
+    else return `font: ${Math.round(3.6*this.scale/text.length)}px sans-serif; text-anchor: middle;`;
+  }
+
 }
+
+
 
 function generatePoints(scale: number) {
   let output = {x: [], y: []};
@@ -115,7 +130,7 @@ function getIndices(qty: number) {
   return output;
 }
 
-function generateTransformationStrings(obj: any): string[] {
+function generateTransformationStringsLetters(obj: any): string[] {
   let points = obj.points;
   let scale = obj.scale;
   let output = [];
@@ -128,7 +143,7 @@ function generateTransformationStrings(obj: any): string[] {
     120, -120, 0,
     180, -60, 60,
     120, -120, 0,
-    180, -60, 60,
+    180, -60, 60
   ];
   for (let i = 0; i < 27; i++) {
     obj.letterDisplacement[i].x = Math.ceil(Math.sin(degrees[i]*Math.PI/180)*scale/12);
@@ -138,3 +153,35 @@ function generateTransformationStrings(obj: any): string[] {
   return output;
 }
 
+function generateTransformationStringsText(obj: any): string[] {
+  let points = obj.points;
+  let scale = obj.scale;
+  let output = [];
+  let degrees = [
+    60, 180, -60,
+    60, 180, -60,
+    0, 120, -120,
+    60, 180, -60,
+    60, 180, -60,
+    0, 120, -120,
+    60, 180, -60,
+    0, 120, -120,
+    60, 180, -60
+  ];
+  for (let i = 0; i < 27; i++) {
+    if (i % 3 != 2) {
+      obj.textDisplacement[i].x = Math.floor((points.x[i+1] - points.x[i]) / 2);
+      obj.textDisplacement[i].y = Math.floor((points.y[i+1] - points.y[i]) / 2);
+    }
+    else {
+      obj.textDisplacement[i].x = Math.floor((points.x[i-2] - points.x[i]) / 2);
+      obj.textDisplacement[i].y = Math.floor((points.y[i-2] - points.y[i]) / 2);
+    }
+    
+    obj.textDisplacement[i].x -= Math.ceil(Math.sin(degrees[i]*Math.PI/180)*scale/6);
+    obj.textDisplacement[i].y += Math.ceil(Math.cos(degrees[i]*Math.PI/180)*scale/6);
+    
+    output.push(`rotate(${degrees[i]}, ${points.x[i]+obj.textDisplacement[i].x}, ${points.y[i]+obj.textDisplacement[i].y})`);
+  }
+  return output;
+}
