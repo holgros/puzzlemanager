@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { setClassMetadata } from '@angular/core/src/r3_symbols';
 
 import { Puzzle } from '../puzzle';
@@ -11,6 +11,11 @@ import { PuzzleDetailComponent } from '../puzzle-detail/puzzle-detail.component'
 })
 export class PreviewComponent implements OnInit {
   @Input() puzzle: Puzzle;
+  @Input() hovering: number;
+
+  lineStyle: string[] = [];
+
+  polygonIndices: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
   scale = Math.floor(window.innerWidth/12);
 
@@ -23,7 +28,7 @@ export class PreviewComponent implements OnInit {
   ];
   transformStringLetters: string[] = generateTransformationStringsLetters(this);
   
-  styleStringText: string = `font: ${Math.round(this.scale/5)}px sans-serif; text-anchor: middle;`;
+  //styleStringText: string = `font: ${Math.round(this.scale/5)}px sans-serif; text-anchor: middle;`;
 
   textDisplacement = [
     {x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0}
@@ -33,11 +38,20 @@ export class PreviewComponent implements OnInit {
   
   constructor() {
     for (let i = 0; i < 27; i+=3) {
+      this.lineStyle.push("fill:white;stroke:black;stroke-width:1");
       this.polygonStrings.push(`${this.points.x[i]},${this.points.y[i]} ${this.points.x[i+1]},${this.points.y[i+1]} ${this.points.x[i+2]},${this.points.y[i+2]}`);
     }
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: { [property: string]: SimpleChange }) {
+    // Extract changes to the input property by its name
+    let change: SimpleChange = changes["hovering"];
+    // Whenever the data in the parent changes, this method gets triggered
+    this.lineStyle[change.currentValue] = "fill:yellow;stroke:red;stroke-width:3";
+    this.lineStyle[change.previousValue] = "fill:white;stroke:black;stroke-width:1";
   }
 
   getStyleStringText = function(text: string) {

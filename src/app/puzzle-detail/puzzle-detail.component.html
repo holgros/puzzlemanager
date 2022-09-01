@@ -5,13 +5,16 @@
         <label for="title">Puzzle title: </label>
         <input id="title" [(ngModel)]="puzzle.title" placeholder="name">
     </div>
-    <ul class="pieces">
-        <li *ngFor="let piece of puzzle.data">
-            <button [class.selected]="piece === selectedPiece" type="button" (click)="onSelect(piece)">
-            <span class="badge">{{puzzle.data.indexOf(piece)}}</span><span class="letters">{{ piece.angles[0] }}</span>
+    <div class="pieces">
+        <div *ngFor="let piece of puzzle.data">
+            <button [class.selected]="piece === selectedPiece" type="button" (click)="onSelect(piece)" (mouseenter)="onMouseenter(piece)" (mouseleave)="onMouseleave()">
+                {{piece.angles[0]+piece.angles[1]+piece.angles[2]}}
             </button>
-        </li>
-    </ul>
-    <app-preview [puzzle]="puzzle"></app-preview>
+        </div>
+    </div>
+    <app-preview [hovering]="hovering" [puzzle]="puzzle"></app-preview>
+    <div *ngIf="selectedPiece" id="editor">
+        Piece {{puzzle.data.indexOf(selectedPiece)}} has been selected!
+    </div>
 
 </div>

@@ -8,3 +8,22 @@ app-preview {
     top: 0px;
     right: 0px;
 }
+
+button {
+    padding: 1rem;
+    margin-right: 0rem;
+    margin-bottom: 0rem;
+    margin-top: 0rem;
+    width: 10rem;
+}
+
+#editor {
+    position: fixed;
+    bottom: 25%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    border: 3px solid #73AD21;
+}
