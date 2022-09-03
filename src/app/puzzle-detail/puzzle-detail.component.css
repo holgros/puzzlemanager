@@ -20,10 +20,23 @@ button {
 #editor {
     position: fixed;
     bottom: 25%;
-    left: 50%;
+    left: 30%;
     transform: translate(-50%, 0);
     width: 50%;
     height: 50%;
     background-color: white;
     border: 3px solid #73AD21;
+}
+
+#editor button {
+    position: absolute;
+    bottom: 0%;
+}
+
+#editor .rightbutton {
+    right: 0%;
+}
+
+#editor .leftbutton {
+    left: 0%;
 }

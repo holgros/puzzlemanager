@@ -55,7 +55,7 @@ export const PUZZLES: Puzzle[] = [
             },
             {
                 angles:["R","A","B"],
-                terms:["Quark","Positron","Antimateria"]
+                terms:["Quark","Positron","Antimatter"]
             },
             {
                 angles:["Q","V","H"],
@@ -83,7 +83,7 @@ export const PUZZLES: Puzzle[] = [
             },
             {
                 angles:["A","O","W"],
-                terms:["Centripetal force","Saturn","Heliocentric"]
+                terms:["Centripetal force","Saturn","Baby Yoda"]
             }
         ]
     }

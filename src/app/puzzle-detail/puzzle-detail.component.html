@@ -14,7 +14,27 @@
     </div>
     <app-preview [hovering]="hovering" [puzzle]="puzzle"></app-preview>
     <div *ngIf="selectedPiece" id="editor">
+        <h3>Edit selected piece</h3>
+        <!--
         Piece {{puzzle.data.indexOf(selectedPiece)}} has been selected!
+        <input id="letter1" [(ngModel)]="selectedPiece.angles[0]" placeholder="name">
+        -->
+        <div *ngFor="let i of [1, 2, 3]">
+            <label for="letter{{i}}">Letter {{i}}: </label>
+            <select id="letter{{i}}" name="letter{{i}}" (change)="updateLetter(i)">
+                <option *ngFor="let letter of letters" [value]="letter" [attr.selected]="letter == selectedPiece.angles[i-1] ? 'selected' : null">{{letter}}</option>
+            </select>
+        </div>
+        <div *ngFor="let i of [1, 2, 3]">
+            <label for="text{{i}}">Text {{i}}: </label>
+            <input id="text{{i}}" [(ngModel)]="selectedPiece.terms[i-1]" placeholder="text">
+        </div>
+        <button class="leftbutton" (click)="abortChanges()">
+            Abort
+        </button>
+        <button class="rightbutton" (click)="closeEditor()">
+            Close and save
+        </button>
     </div>
 
 </div>
