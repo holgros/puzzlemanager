@@ -2,7 +2,10 @@
 <ul class="puzzles">
     <li *ngFor="let puzzle of puzzles">
         <button [class.selected]="puzzle === selectedPuzzle" type="button" (click)="onSelect(puzzle)">
+        <!--
         <span class="badge">{{puzzle.created.toISOString().slice(0,-5).replace("T", ", ")}}</span><span class="title">{{ puzzle.title }}</span>
+        -->
+        <span class="badge">{{puzzle.created.slice(0,-5).replace("T", ", ")}}</span><span class="title">{{ puzzle.title }}</span>
         </button>
 
         <app-puzzle-detail *ngIf="selectedPuzzle == puzzle" [puzzle]="selectedPuzzle"></app-puzzle-detail>

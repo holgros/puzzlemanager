@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Puzzle } from '../puzzle';
 import { PUZZLES } from '../mock-puzzles';
+import { PuzzleService } from '../puzzle.service';
+import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 
 @Component({
   selector: 'app-puzzles',
@@ -9,8 +11,29 @@ import { PUZZLES } from '../mock-puzzles';
 })
 export class PuzzlesComponent implements OnInit {
 
-  puzzles = PUZZLES;
+  puzzles: Puzzle[] | undefined;
 
+  //puzzles = PUZZLES;
+  http = new HttpClient(new HttpXhrBackend({ 
+    build: () => new XMLHttpRequest() 
+  }));
+  puzzleService = new PuzzleService(this.http);
+  //puzzles = this.puzzleService.getPuzzles();
+  //puzzles = this.puzzleService.getHeroes();
+
+  getPuzzles(): void {
+    //this.heroes = this.heroService.getHeroes();
+    this.puzzleService.getPuzzles().subscribe(puzzles => this.puzzles = puzzles);
+  }
+  /*
+  convertDates(): void {
+    for (let i = 0; i < this.puzzles.length; i++) {
+      this.puzzles[i].created = new Date(this.puzzles[i].created);
+    }
+  }
+  */
+
+  /*
   puzzle: Puzzle = {
     id: "626a93d8bfa77bba3be3b7c3",
     title: "Biology puzzle",
@@ -54,10 +77,12 @@ export class PuzzlesComponent implements OnInit {
       }
     ]
   }
+  */
 
-  constructor() { }
+  constructor(private heroService: PuzzleService) { }
 
   ngOnInit(): void {
+    this.getPuzzles();
   }
 
   selectedPuzzle: Puzzle;

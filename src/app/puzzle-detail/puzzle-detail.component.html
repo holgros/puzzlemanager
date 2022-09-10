@@ -1,6 +1,9 @@
 <div class="details" *ngIf="puzzle">
     <h2>{{puzzle.title | uppercase}} Details</h2>
+    <!--
     <div><span>created: </span>{{puzzle.created.toISOString().slice(0,-5).replace("T", ", ")}} (UTC)</div>
+    -->
+    <div><span>created: </span>{{puzzle.created.slice(0,-5).replace("T", ", ")}} (UTC)</div>
     <div>
         <label for="title">Puzzle title: </label>
         <input id="title" [(ngModel)]="puzzle.title" placeholder="name">

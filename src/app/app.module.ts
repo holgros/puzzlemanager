@@ -7,6 +7,7 @@ import { PuzzlesComponent } from './puzzles/puzzles.component';
 import { FormsModule } from '@angular/forms';
 import { PuzzleDetailComponent } from './puzzle-detail/puzzle-detail.component';
 import { PreviewComponent } from './preview/preview.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PreviewComponent } from './preview/preview.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
