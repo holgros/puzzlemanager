@@ -1,3 +1,5 @@
+<button (click)="newPuzzle()">Create new puzzle</button>
+<div *ngIf="newPuzzleTitle">Here you can create a new puzzle...</div>
 <h2>My puzzles</h2>
 <ul class="puzzles">
     <li *ngFor="let puzzle of puzzles">

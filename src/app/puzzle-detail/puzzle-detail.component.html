@@ -6,7 +6,14 @@
     <div><span>created: </span>{{puzzle.created.slice(0,-5).replace("T", ", ")}} (UTC)</div>
     <div>
         <label for="title">Puzzle title: </label>
+        <input id="title" [(ngModel)]="tempTitle" placeholder="name">
+<!--
         <input id="title" [(ngModel)]="puzzle.title" placeholder="name">
+-->
+        <span *ngIf="tempTitle != puzzle.title">
+            <button class="titleButton" (click)="restoreTitle()">Cancel</button>
+            <button class="titleButton" (click)="saveTitle()">Save</button>
+        </span>
     </div>
     <div class="pieces">
         <div *ngFor="let piece of puzzle.data">
@@ -18,10 +25,6 @@
     <app-preview [hovering]="hovering" [puzzle]="puzzle"></app-preview>
     <div *ngIf="selectedPiece" id="editor">
         <h3>Edit selected piece</h3>
-        <!--
-        Piece {{puzzle.data.indexOf(selectedPiece)}} has been selected!
-        <input id="letter1" [(ngModel)]="selectedPiece.angles[0]" placeholder="name">
-        -->
         <div *ngFor="let i of [1, 2, 3]">
             <label for="letter{{i}}">Letter {{i}}: </label>
             <select id="letter{{i}}" name="letter{{i}}" (change)="updateLetter(i)">
@@ -33,7 +36,7 @@
             <input id="text{{i}}" [(ngModel)]="selectedPiece.terms[i-1]" placeholder="text">
         </div>
         <button class="leftbutton" (click)="abortChanges()">
-            Abort
+            Cancel
         </button>
         <button class="rightbutton" (click)="saveChanges()">
             Close and save

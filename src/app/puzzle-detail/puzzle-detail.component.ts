@@ -23,6 +23,10 @@ export class PuzzleDetailComponent implements OnInit {
   @Input() puzzle: Puzzle;
   //@Input() piece: Piece;
 
+  previousTitle: string;
+
+  tempTitle: string;
+
   hovering: number;
 
   restore: Piece;
@@ -32,6 +36,8 @@ export class PuzzleDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //this.previousTitle = this.puzzle.title;
+    this.tempTitle = this.puzzle.title;
   }
 
   selectedPiece: Piece;
@@ -68,6 +74,17 @@ export class PuzzleDetailComponent implements OnInit {
   async saveChanges(): Promise<void> {
     this.puzzleService.updatePiece(this.puzzle, this.puzzle.data.indexOf(this.selectedPiece)).subscribe(pieces => this.puzzle.data = pieces.data);
     this.closeEditor();
+  }
+
+  saveTitle(): void {
+    this.puzzle.title = this.tempTitle;
+    this.puzzleService.updateTitle(this.puzzle).subscribe(pieces => this.puzzle.data = pieces.data);
+    //this.previousTitle = this.puzzle.title;
+  }
+
+  restoreTitle(): void {
+    //this.puzzle.title = this.previousTitle;
+    this.tempTitle = this.puzzle.title;
   }
 
 }

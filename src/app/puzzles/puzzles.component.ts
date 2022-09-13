@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Puzzle } from '../puzzle';
-import { PUZZLES } from '../mock-puzzles';
 import { PuzzleService } from '../puzzle.service';
 import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 
@@ -11,9 +10,10 @@ import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 })
 export class PuzzlesComponent implements OnInit {
 
+  newPuzzleTitle: string | undefined;
+
   puzzles: Puzzle[] | undefined;
 
-  //puzzles = PUZZLES;
   http = new HttpClient(new HttpXhrBackend({ 
     build: () => new XMLHttpRequest() 
   }));
@@ -22,6 +22,12 @@ export class PuzzlesComponent implements OnInit {
   getPuzzles(): void {
     this.puzzleService.getPuzzles().subscribe(puzzles => this.puzzles = puzzles);
   }
+
+  newPuzzle(): void {
+    this.newPuzzleTitle = "New puzzle";
+    this.selectedPuzzle = null;
+  }
+
   /*
   convertDates(): void {
     for (let i = 0; i < this.puzzles.length; i++) {
@@ -76,7 +82,7 @@ export class PuzzlesComponent implements OnInit {
   }
   */
 
-  constructor(private heroService: PuzzleService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.getPuzzles();
@@ -84,7 +90,7 @@ export class PuzzlesComponent implements OnInit {
 
   selectedPuzzle: Puzzle;
   onSelect(puzzle: Puzzle): void {
-    
+    this.newPuzzleTitle = undefined;
     if (this.selectedPuzzle == puzzle) {  // toggle
       this.selectedPuzzle = null;
       return;

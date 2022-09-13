@@ -11,7 +11,7 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PuzzleService {
-
+  
   apiUrl = "https://peaceful-sands-97012.herokuapp.com/puzzles/";
 
   constructor(private http: HttpClient) { 
@@ -39,13 +39,20 @@ export class PuzzleService {
   }
 
     // PATCH: uppdatera en pusselbit på servern
-    updatePiece(puzzle: Puzzle, pieceNbr: number): Observable<any> {
+    updatePiece(puzzle: Puzzle, pieceNbr: number): Observable<Puzzle> {
       return this.http.patch<any>(`${this.apiUrl}${puzzle._id}/${pieceNbr}`, puzzle.data[pieceNbr], this.httpOptions).pipe(
         tap(_ => console.log('PATCH request successful!')),
         catchError(this.handleError<Puzzle[]>('updatePiece', []))
       );
     }
   
+  // PATCH: uppdatera titeln på servern
+  updateTitle(puzzle: Puzzle): Observable<Puzzle> {
+    return this.http.patch<any>(`${this.apiUrl}${puzzle._id}`, {title: puzzle.title}, this.httpOptions).pipe(
+      tap(_ => console.log('PATCH request successful!')),
+      catchError(this.handleError<Puzzle[]>('updateTitle', []))
+    );
+  }
 
   private handleError<T>(operation = 'operation', result?:T) {
     //console.log("An error occurred!");
