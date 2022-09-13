@@ -18,11 +18,8 @@ export class PuzzlesComponent implements OnInit {
     build: () => new XMLHttpRequest() 
   }));
   puzzleService = new PuzzleService(this.http);
-  //puzzles = this.puzzleService.getPuzzles();
-  //puzzles = this.puzzleService.getHeroes();
 
   getPuzzles(): void {
-    //this.heroes = this.heroService.getHeroes();
     this.puzzleService.getPuzzles().subscribe(puzzles => this.puzzles = puzzles);
   }
   /*

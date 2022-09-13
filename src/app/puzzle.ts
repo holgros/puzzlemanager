@@ -1,7 +1,7 @@
 import { Piece } from "./piece";
 
 export interface Puzzle {
-    id: string;
+    _id: string;
     title: string;
     created: Date;
     data: Array<Piece>;

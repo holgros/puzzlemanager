@@ -2,7 +2,7 @@ import { Puzzle } from "./puzzle";
 
 export const PUZZLES: Puzzle[] = [
     {
-        id: "627b7359332f528cf354a309",
+        _id: "627b7359332f528cf354a309",
         title: "Biology puzzle",
         created: new Date("2022-05-10T13:15:22.765+00:00"),
         data: [
@@ -45,7 +45,7 @@ export const PUZZLES: Puzzle[] = [
         ]
     },
     {
-        id: "627b7252b5af93c11bcd3f79",
+        _id: "627b7252b5af93c11bcd3f79",
         title:"Physics puzzle",
         created: new Date("2022-05-11T08:03:35.454Z"),
         data:[

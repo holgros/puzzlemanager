@@ -3,6 +3,9 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Puzzle } from '../puzzle';
 
 import { Piece } from '../piece';
+import { PuzzleService } from '../puzzle.service';
+
+import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 
 @Component({
   selector: 'app-puzzle-detail',
@@ -10,6 +13,12 @@ import { Piece } from '../piece';
   styleUrls: ['./puzzle-detail.component.css']
 })
 export class PuzzleDetailComponent implements OnInit {
+
+  http = new HttpClient(new HttpXhrBackend({ 
+    build: () => new XMLHttpRequest() 
+  }));
+
+  puzzleService = new PuzzleService(this.http);
   
   @Input() puzzle: Puzzle;
   //@Input() piece: Piece;
@@ -53,6 +62,11 @@ export class PuzzleDetailComponent implements OnInit {
   abortChanges(): void {
     this.selectedPiece.angles = this.restore.angles;
     this.selectedPiece.terms = this.restore.terms;
+    this.closeEditor();
+  }
+
+  async saveChanges(): Promise<void> {
+    this.puzzleService.updatePiece(this.puzzle, this.puzzle.data.indexOf(this.selectedPiece)).subscribe(pieces => this.puzzle.data = pieces.data);
     this.closeEditor();
   }
 
