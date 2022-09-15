@@ -1,2 +1,12 @@
 <h1>{{title}}</h1>
-<app-puzzles></app-puzzles>
+<form *ngIf="!user">
+    <label>Username:</label>
+    <input [(ngModel)]="userInput" name="userInput">
+    <button class="loginButton" (click)="setUsername()">Log in</button>
+</form>
+    
+<div class="userDiv" *ngIf="user">
+    user: {{user}}
+    <button class="loginButton" (click)="logout()">Log out</button>
+</div>
+<app-puzzles *ngIf="user" [user]="user"></app-puzzles>

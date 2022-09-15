@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Puzzle } from '../puzzle';
 import { PuzzleService } from '../puzzle.service';
 import { HttpClient, HttpXhrBackend } from '@angular/common/http';
@@ -10,6 +10,8 @@ import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 })
 export class PuzzlesComponent implements OnInit {
 
+  @Input() user: string;
+
   newPuzzleTitle: string | undefined;
 
   puzzles: Puzzle[] | undefined;
@@ -20,12 +22,25 @@ export class PuzzlesComponent implements OnInit {
   puzzleService = new PuzzleService(this.http);
 
   getPuzzles(): void {
-    this.puzzleService.getPuzzles().subscribe(puzzles => this.puzzles = puzzles);
+    this.puzzleService.getPuzzles(this.user).subscribe(puzzles => this.puzzles = puzzles);
   }
 
   newPuzzle(): void {
     this.newPuzzleTitle = "New puzzle";
+    // CHECK IF NAME ALREADY OCCUPIED!!
     this.selectedPuzzle = null;
+  }
+
+  createPuzzle(): void {
+    let trimmedTitle = this.newPuzzleTitle.replace(/[^a-zA-Z0-9-_]/g, "");
+    if (!trimmedTitle) {
+      alert("Title must not be empty!");
+      return;
+    }
+    
+    // CHECK IF NAME ALREADY OCCUPIED!!
+
+    this.newPuzzleTitle = undefined;
   }
 
   /*

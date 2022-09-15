@@ -1,0 +1,15 @@
+input {
+    margin-left: 1em;
+}
+
+.loginButton {
+    margin-left: 1em;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.userDiv {
+    position: absolute;
+    right: 0;
+    top: 0;
+}

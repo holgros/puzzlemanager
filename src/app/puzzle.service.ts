@@ -21,9 +21,11 @@ export class PuzzleService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  getPuzzles(): Observable<Puzzle[]> {
+  // GET: obtain puzzles from server
+  getPuzzles(user: string): Observable<Puzzle[]> {
     // TODO: skicka meddelande _efter_ att puzzles har hämtats
-    return this.http.get<Puzzle[]>(this.apiUrl).pipe(
+    let trimmedUsername = user.replace(/[^a-zA-Z0-9-_]/g, "");
+    return this.http.get<Puzzle[]>(`${this.apiUrl}?user=${trimmedUsername}`).pipe(
       tap(_ => console.log('fetched puzzles from API')),
       catchError(this.handleError<Puzzle[]>('getPuzzles', []))
     );

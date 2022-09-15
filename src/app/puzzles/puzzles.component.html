@@ -1,6 +1,16 @@
-<button (click)="newPuzzle()">Create new puzzle</button>
-<div *ngIf="newPuzzleTitle">Here you can create a new puzzle...</div>
-<h2>My puzzles</h2>
+<button *ngIf="newPuzzleTitle == undefined" (click)="newPuzzle()">Create new puzzle</button>
+<div *ngIf="newPuzzleTitle != undefined">
+    <h2>Create new puzzle</h2>
+    <form>
+        <label>Title:</label>
+        <input [(ngModel)]="newPuzzleTitle" name="newPuzzleTitle" (focus)="newPuzzleTitle='';">
+        <button (click)="newPuzzleTitle=undefined;">Cancel</button>
+        <button (click)="createPuzzle()">Create</button>
+    </form>
+</div>
+<h2 *ngIf="puzzles == undefined">Fetching puzzles...</h2>
+<p *ngIf="puzzles != undefined && puzzles.length == 0">User {{user}} has no puzzles on the server.</p>
+<h2 *ngIf="puzzles != undefined && puzzles.length > 0">My puzzles</h2>
 <ul class="puzzles">
     <li *ngFor="let puzzle of puzzles">
         <button [class.selected]="puzzle === selectedPuzzle" type="button" (click)="onSelect(puzzle)">

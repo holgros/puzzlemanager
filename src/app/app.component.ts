@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Puzzle manager';
+  user: string | undefined;
+  userInput: string;
+
+  setUsername(): void {
+    this.user = this.userInput;
+  }
+
+  logout(): void {
+    this.user = undefined;
+    this.userInput = "";
+  }
+  
+
 }
