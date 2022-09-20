@@ -8,9 +8,9 @@
         <button (click)="createPuzzle()">Create</button>
     </form>
 </div>
-<h2 *ngIf="puzzles == undefined">Fetching puzzles...</h2>
-<p *ngIf="puzzles != undefined && puzzles.length == 0">User {{user}} has no puzzles on the server.</p>
-<h2 *ngIf="puzzles != undefined && puzzles.length > 0">My puzzles</h2>
+<h2 *ngIf="user && puzzles == undefined">Fetching puzzles...</h2>
+<p *ngIf="user && puzzles != undefined && puzzles.length == 0">User {{user}} does not have any puzzles on the server.</p>
+<h2 *ngIf="user && puzzles != undefined && puzzles.length > 0">My puzzles</h2>
 <ul class="puzzles">
     <li *ngFor="let puzzle of puzzles">
         <button [class.selected]="puzzle === selectedPuzzle" type="button" (click)="onSelect(puzzle)">

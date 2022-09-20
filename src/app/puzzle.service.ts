@@ -12,6 +12,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class PuzzleService {
   
+  //apiUrl = "localhost:3000/puzzles/";
   apiUrl = "https://peaceful-sands-97012.herokuapp.com/puzzles/";
 
   constructor(private http: HttpClient) { 
@@ -21,14 +22,33 @@ export class PuzzleService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
+  headerDict = {
+    "Accept": "application/json",
+    "authorization": ""// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzI4MjliZDdkNmIxOTNhZTczZGNlYTQiLCJuYW1lIjoiSG9sZ2VyIiwiZXhwaXJlcyI6IjIwMjItMDktMjBUMTc6MDY6MDAuOTM5WiIsImlhdCI6MTY2MzY5MTc2MH0.Q0cDmqDACFtBqKGRsPqT8PU2V5olZVCQx5b8A5rdp_s"
+  }
+
   // GET: obtain puzzles from server
   getPuzzles(user: string): Observable<Puzzle[]> {
-    // TODO: skicka meddelande _efter_ att puzzles har hämtats
     let trimmedUsername = user.replace(/[^a-zA-Z0-9-_]/g, "");
-    return this.http.get<Puzzle[]>(`${this.apiUrl}?user=${trimmedUsername}`).pipe(
-      tap(_ => console.log('fetched puzzles from API')),
-      catchError(this.handleError<Puzzle[]>('getPuzzles', []))
+    
+    const requestOptions = {                                                                                                                                                                                 
+      headers: new HttpHeaders(this.headerDict), 
+    };
+
+    //return this.http.get<Puzzle[]>(`${this.apiUrl}?user=${trimmedUsername}`).pipe(
+    return this.http.get<Puzzle[]>(`${this.apiUrl}?user=${trimmedUsername}`, requestOptions).pipe(
+        tap(_ => console.log('fetched puzzles from API')),
+      catchError(this.handleError<Puzzle[]>('getPuzzles', []))  // TODO: refresh page to prompt login
     );
+  }
+
+  // POST: login with credentials and receive token
+  login(input: string, passcode: string): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}login`, {name: input, passcode: passcode}, this.httpOptions).pipe(
+      data => {console.log('POST request successful!'); return data;},
+      error => {console.log('POST request failed!', error); return error;}
+    );
+    //return null;
   }
 
   // PUT: uppdatera ett pussel på servern
@@ -51,7 +71,7 @@ export class PuzzleService {
   // PATCH: uppdatera titeln på servern
   updateTitle(puzzle: Puzzle): Observable<Puzzle> {
     return this.http.patch<any>(`${this.apiUrl}${puzzle._id}`, {title: puzzle.title}, this.httpOptions).pipe(
-      tap(_ => console.log('PATCH request successful!')),
+      tap(_ => console.log("PATCH request successful!")),
       catchError(this.handleError<Puzzle[]>('updateTitle', []))
     );
   }

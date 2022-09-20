@@ -1,12 +1,21 @@
 <h1>{{title}}</h1>
-<form *ngIf="!user">
-    <label>Username:</label>
-    <input [(ngModel)]="userInput" name="userInput">
-    <button class="loginButton" (click)="setUsername()">Log in</button>
-</form>
-    
+<table *ngIf="!user">
+        <tr>
+            <td><label>Username:</label></td>
+            <td><input [(ngModel)]="userInput" name="userInput"></td>
+        </tr>
+        <tr>
+            <td><label>Passcode:</label></td>
+            <td><input type="password" [(ngModel)]="passcode" name="passcode"><br></td>
+        </tr>
+        <tr>
+            <td><button class="loginButton" (click)="login()">Log in</button></td>
+        </tr>
+</table>
+<p class="errorMsg" *ngIf="errorMsg">{{errorMsg}}</p>
+
 <div class="userDiv" *ngIf="user">
     user: {{user}}
     <button class="loginButton" (click)="logout()">Log out</button>
 </div>
-<app-puzzles *ngIf="user" [user]="user"></app-puzzles>
+<app-puzzles *ngIf="user" [user]="user" [puzzleService]="puzzleService"></app-puzzles>

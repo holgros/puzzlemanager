@@ -11,15 +11,18 @@ import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 export class PuzzlesComponent implements OnInit {
 
   @Input() user: string;
+  @Input() puzzleService: PuzzleService;
 
   newPuzzleTitle: string | undefined;
 
   puzzles: Puzzle[] | undefined;
 
+  /*
   http = new HttpClient(new HttpXhrBackend({ 
     build: () => new XMLHttpRequest() 
   }));
   puzzleService = new PuzzleService(this.http);
+  */
 
   getPuzzles(): void {
     this.puzzleService.getPuzzles(this.user).subscribe(puzzles => this.puzzles = puzzles);
