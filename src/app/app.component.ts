@@ -18,6 +18,7 @@ export class AppComponent {
   }));
   puzzleService = new PuzzleService(this.http);
   token: string;
+  newUser: boolean;
 
   login(): void {
     let input = this.userInput;
@@ -38,6 +39,10 @@ export class AppComponent {
 
   setUsername(name: string): void {
     this.user = name;
+  }
+
+  register(): void {
+    this.newUser = true;
   }
 
   logout(): void {

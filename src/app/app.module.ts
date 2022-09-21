@@ -8,13 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { PuzzleDetailComponent } from './puzzle-detail/puzzle-detail.component';
 import { PreviewComponent } from './preview/preview.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PuzzlesComponent,
     PuzzleDetailComponent,
-    PreviewComponent
+    PreviewComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

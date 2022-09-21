@@ -1,0 +1,26 @@
+<h2>New user</h2>
+<p>Complete registration details</p>
+<table>
+    <tr>
+        <td><label [ngStyle]="{'color': wrongUserName ? 'red' : 'black'}">Username:</label></td>
+        <td><input [(ngModel)]="userInput" name="userInput"></td>
+    </tr>
+    <tr>
+        <td><label [ngStyle]="{'color': wrongPasscode ? 'red' : 'black'}">Passcode:</label></td>
+        <td><input type="password" [(ngModel)]="passcode" name="passcode"><br></td>
+    </tr>
+    <tr>
+        <td><label [ngStyle]="{'color': wrongPasscode ? 'red' : 'black'}">Repeat passcode:</label></td>
+        <td><input type="password" [(ngModel)]="repeatPasscode" name="repeatPasscode"><br></td>
+    </tr>
+    <tr>
+        <td><label [ngStyle]="{'color': wrongEmail ? 'red' : 'black'}">Email:</label></td>
+        <td><input type="email" [(ngModel)]="email" name="email"><br></td>
+    </tr>
+    <tr>
+        <td><button type="button" (click)="create()">Submit</button>
+            </td>
+        <td><button type="button" (click)="cancel()">Cancel</button>
+        </td>
+    </tr>
+</table>
