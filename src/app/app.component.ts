@@ -1,3 +1,4 @@
+import { LOCATION_INITIALIZED } from '@angular/common';
 import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { PuzzleService } from './puzzle.service';
@@ -46,11 +47,18 @@ export class AppComponent {
   }
 
   logout(): void {
+    // necessary?
     this.puzzleService.headerDict.authorization = undefined;
     this.token = undefined;
     this.user = undefined;
     this.userInput = "";
     this.passcode = "";
+    
+    location.reload();
+  }
+
+  forgot(): void {
+    alert("Sorry, this functionality is not implemented yet. Please contact your administrator.")
   }
   
 

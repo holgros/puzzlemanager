@@ -17,6 +17,12 @@ button {
     width: 10rem;
 }
 
+.delete {
+    color: white;
+    background-color: #f44336;
+    margin-top: 1rem;
+}
+
 .titleButton {
     width: auto;
     margin-right: 1rem;
@@ -46,4 +52,8 @@ button {
 
 #editor .leftbutton {
     left: 0%;
+}
+
+.pieces {
+    margin-top: 1rem;
 }

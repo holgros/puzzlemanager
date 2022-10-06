@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Puzzle } from '../puzzle';
 
@@ -18,10 +18,9 @@ export class PuzzleDetailComponent implements OnInit {
     build: () => new XMLHttpRequest() 
   }));
 
-  puzzleService = new PuzzleService(this.http);
-  
   @Input() puzzle: Puzzle;
-  //@Input() piece: Piece;
+  @Input() puzzleService: PuzzleService;
+  @Output() puzzleDelete = new EventEmitter<string>();
 
   previousTitle: string;
 
@@ -78,13 +77,27 @@ export class PuzzleDetailComponent implements OnInit {
 
   saveTitle(): void {
     this.puzzle.title = this.tempTitle;
-    this.puzzleService.updateTitle(this.puzzle).subscribe(pieces => this.puzzle.data = pieces.data);
+    this.puzzleService.updateTitle(this.puzzle).subscribe(pieces => {
+      this.puzzle.data = pieces.data;
+      //this.puzzleChanges.emit(true);
+    });
     //this.previousTitle = this.puzzle.title;
   }
 
   restoreTitle(): void {
     //this.puzzle.title = this.previousTitle;
     this.tempTitle = this.puzzle.title;
+  }
+
+  delete(): void {
+    let ok = confirm("Do you really want to delete " + this.puzzle.title + "?\nThis operation cannot be undone.");
+    if (ok) {
+      this.puzzleService.deletePuzzle(this.puzzle._id).subscribe(result => {
+        //console.log = result;
+        this.puzzleDelete.emit(this.puzzle._id);
+        //this.puzzle = undefined;
+      });
+    }
   }
 
 }

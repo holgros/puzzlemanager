@@ -15,6 +15,7 @@
             <button class="titleButton" (click)="saveTitle()">Save</button>
         </span>
     </div>
+    <button *ngIf="!selectedPiece" class="delete" (click)="delete()">Delete puzzle</button>
     <div class="pieces">
         <div *ngFor="let piece of puzzle.data">
             <button [class.selected]="piece === selectedPiece" type="button" (click)="onSelect(piece)" (mouseenter)="onMouseenter(piece)" (mouseleave)="onMouseleave()">

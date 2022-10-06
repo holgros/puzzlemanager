@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PuzzleService } from '../puzzle.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,6 +13,8 @@ export class RegistrationComponent implements OnInit {
 
   @Input() userInput: string;
   @Input() passcode: string;
+
+  @Input() puzzleService: PuzzleService;
 
   //@Input() msg!: string;
   @Output() msgChange = new EventEmitter<string>();
@@ -38,9 +41,9 @@ export class RegistrationComponent implements OnInit {
     this.wrongUserName = false;
     this.wrongPasscode = false;
     this.wrongEmail = false;
-    if (!this.userInput) {
+    if (!this.userInput || !/^[A-Za-z0-9\-]*$/.test(this.userInput)) {
       this.wrongUserName = true;
-      message += "Username is required. ";
+      message += "An alphanumerical username (using English letters) is required. ";
     }
     if (!this.passcode) {
       this.wrongPasscode = true;
@@ -54,9 +57,19 @@ export class RegistrationComponent implements OnInit {
       this.wrongPasscode = true;
       message += "Passcodes must match. ";
     }
-
     this.msgChange.emit(message);
-    alert("New user created?");
+    if (!message) {
+      this.puzzleService.newUser(this.userInput, this.passcode, this.email).subscribe(data => {
+        if (data.err) {
+          message = data.err;
+          this.msgChange.emit(message);
+        }
+        else {
+          alert(data.result);
+          this.cancel();
+        }
+      });
+    }
   }
 
   ngOnInit(): void {

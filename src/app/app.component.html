@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
-<app-registration *ngIf="newUser" [userInput]="userInput" [passcode]="passcode" [newUser]="newUser"  (msgChange)="errorMsg=$event" (exitNewUserDialog)="newUser=$event"></app-registration>
-<table *ngIf="!user && !newUser">
+<app-registration *ngIf="newUser" [userInput]="userInput" [passcode]="passcode" [newUser]="newUser" [puzzleService]="puzzleService" (msgChange)="errorMsg=$event" (exitNewUserDialog)="newUser=$event"></app-registration>
+<table (keyup.enter)="login()" *ngIf="!user && !newUser">
         <tr>
             <td><label>Username:</label></td>
             <td><input [(ngModel)]="userInput" name="userInput"></td>
@@ -11,7 +11,11 @@
         </tr>
         <tr>
             <td><button class="loginButton" (click)="login()">Log in</button></td>
-            <td><button class="registerButton" (click)="register()">Register</button></td>
+            <td><button class="loginButton" (click)="register()">Register</button></td>
+        </tr>
+        <tr>
+            <td><a href="" (click)="forgot()">Forgot username?</a></td>
+            <td></td>
         </tr>
 </table>
 <p class="errorMsg" *ngIf="errorMsg">{{errorMsg}}</p>

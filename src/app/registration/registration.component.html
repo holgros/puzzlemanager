@@ -2,19 +2,19 @@
 <p>Complete registration details</p>
 <table>
     <tr>
-        <td><label [ngStyle]="{'color': wrongUserName ? 'red' : 'black'}">Username:</label></td>
+        <td><label class="tooltip" [ngStyle]="{'color': wrongUserName ? 'red' : 'black'}">Username:<span class="tooltiptext">Username must be alphanumerical and not occupied.</span></label></td>
         <td><input [(ngModel)]="userInput" name="userInput"></td>
     </tr>
     <tr>
-        <td><label [ngStyle]="{'color': wrongPasscode ? 'red' : 'black'}">Passcode:</label></td>
+        <td><label class="tooltip" [ngStyle]="{'color': wrongPasscode ? 'red' : 'black'}">Passcode:<span class="tooltiptext">Choose a password!</span></label></td>
         <td><input type="password" [(ngModel)]="passcode" name="passcode"><br></td>
     </tr>
     <tr>
-        <td><label [ngStyle]="{'color': wrongPasscode ? 'red' : 'black'}">Repeat passcode:</label></td>
+        <td><label class="tooltip" [ngStyle]="{'color': wrongPasscode ? 'red' : 'black'}">Repeat passcode:<span class="tooltiptext">Must match the previous input field.</span></label></td>
         <td><input type="password" [(ngModel)]="repeatPasscode" name="repeatPasscode"><br></td>
     </tr>
     <tr>
-        <td><label [ngStyle]="{'color': wrongEmail ? 'red' : 'black'}">Email:</label></td>
+        <td><label class="tooltip" [ngStyle]="{'color': wrongEmail ? 'red' : 'black'}">Email:<span class="tooltiptext">Only used for restoring passwords.</span></label></td>
         <td><input type="email" [(ngModel)]="email" name="email"><br></td>
     </tr>
     <tr>

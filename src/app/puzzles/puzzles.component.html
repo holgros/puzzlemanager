@@ -1,3 +1,6 @@
+<!--
+<p *ngIf="message">{{message}}</p>
+-->
 <button *ngIf="newPuzzleTitle == undefined" (click)="newPuzzle()">Create new puzzle</button>
 <div *ngIf="newPuzzleTitle != undefined">
     <h2>Create new puzzle</h2>
@@ -20,7 +23,7 @@
         <span class="badge">{{puzzle.created.slice(0,-5).replace("T", ", ")}}</span><span class="title">{{ puzzle.title }}</span>
         </button>
 
-        <app-puzzle-detail *ngIf="selectedPuzzle == puzzle" [puzzle]="selectedPuzzle"></app-puzzle-detail>
+        <app-puzzle-detail *ngIf="selectedPuzzle == puzzle" [puzzle]="selectedPuzzle" [puzzleService]="puzzleService" (puzzleDelete)="handleDelete($event)"></app-puzzle-detail>
     </li>
 </ul>
 

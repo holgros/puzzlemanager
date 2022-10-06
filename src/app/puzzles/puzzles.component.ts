@@ -10,10 +10,13 @@ import { HttpClient, HttpXhrBackend } from '@angular/common/http';
 })
 export class PuzzlesComponent implements OnInit {
 
+  //message: string;
+
   @Input() user: string;
   @Input() puzzleService: PuzzleService;
 
   newPuzzleTitle: string | undefined;
+  newPuzzleObject: Puzzle;
 
   puzzles: Puzzle[] | undefined;
 
@@ -24,25 +27,59 @@ export class PuzzlesComponent implements OnInit {
   puzzleService = new PuzzleService(this.http);
   */
 
+  handleDelete(data): void {
+    //this.message = data;
+    /*
+    for (let i = 0; i < this.puzzles.length; i++) {
+      if (this.puzzles[i]._id == data) {
+        this.puzzles.splice(i, 1);
+      }
+    }
+    */
+    this.ngOnInit();
+  }
+
   getPuzzles(): void {
-    this.puzzleService.getPuzzles(this.user).subscribe(puzzles => this.puzzles = puzzles);
+    this.puzzleService.getPuzzles(this.user).subscribe(puzzles => this.puzzles = puzzles.reverse());
   }
 
   newPuzzle(): void {
-    this.newPuzzleTitle = "New puzzle";
-    // CHECK IF NAME ALREADY OCCUPIED!!
     this.selectedPuzzle = null;
+    this.newPuzzleTitle = "New puzzle";
+    this.newPuzzleObject = {
+      _id: null, 
+      title: this.newPuzzleTitle, 
+      creator: this.user, 
+      created: new Date(), 
+      data: [] 
+    };
+    for (let i = 0; i < 9; i++) {
+      this.newPuzzleObject.data.push({
+        angles: ["A", "B", "C"],
+        terms: ["text1", "text2", "text3"]
+      });
+    }
   }
 
   createPuzzle(): void {
-    let trimmedTitle = this.newPuzzleTitle.replace(/[^a-zA-Z0-9-_]/g, "");
+    /*
+    let trimmedTitle = this.newPuzzleTitle.replace(" ", "+");
+    trimmedTitle = trimmedTitle.replace(/[^a-zA-Z0-9-_]/g, "");
     if (!trimmedTitle) {
       alert("Title must not be empty!");
       return;
     }
-    
-    // CHECK IF NAME ALREADY OCCUPIED!!
-
+    this.newPuzzleObject.title = trimmedTitle;
+    */
+    this.newPuzzleObject.title = this.newPuzzleTitle;
+    this.puzzleService.newPuzzle(this.newPuzzleObject).subscribe(puzzle => {
+      //this.getPuzzles();
+      this.ngOnInit();
+      /*
+      this.newPuzzleObject.created = this.newPuzzleObject.created.toISOString();
+      this.puzzles.unshift(this.newPuzzleObject);
+      */
+    });
     this.newPuzzleTitle = undefined;
   }
 
