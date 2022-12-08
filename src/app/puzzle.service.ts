@@ -13,7 +13,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class PuzzleService {
 
   //apiUrl = "localhost:3000/puzzles/";
-  apiUrl = "https://peaceful-sands-97012.herokuapp.com/puzzles/";
+  apiUrl = "https://holgros-puzzle-api.herokuapp.com/puzzles/";
 
   constructor(private http: HttpClient) { 
   }
