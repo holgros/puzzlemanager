@@ -40,6 +40,11 @@ export class PuzzleDetailComponent implements OnInit {
   }
 
   selectedPiece: Piece;
+
+  copyLink(): void {
+    navigator.clipboard.writeText(`https://avateknik.se/puzzle/sign-in.php?teacher=${this.puzzle.creator}&puzzle=${this.puzzle._id}`);
+    alert("Copied to clipboard!");
+  }
   
   onMouseenter(piece: Piece): void {
     if (!this.selectedPiece) this.hovering = this.puzzle.data.indexOf(piece);

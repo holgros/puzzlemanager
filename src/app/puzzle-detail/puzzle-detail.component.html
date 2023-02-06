@@ -3,7 +3,10 @@
     <!--
     <div><span>created: </span>{{puzzle.created.toISOString().slice(0,-5).replace("T", ", ")}} (UTC)</div>
     -->
-    <div><a href="https://avateknik.se/puzzle/sign-in.php?teacher={{puzzle.creator}}&puzzle={{puzzle._id}}">Link to puzzle</a><button id="linkCopy">Copy link</button></div>
+    <div>
+        <a href="https://avateknik.se/puzzle/sign-in.php?teacher={{puzzle.creator}}&puzzle={{puzzle._id}}">Link to puzzle</a>
+        <button id="linkCopy" (click)="copyLink()">Copy link</button>
+    </div>
     <div><span>created: </span>{{puzzle.created.slice(0,-5).replace("T", ", ")}} (UTC)</div>
     <div>
         <label for="title">Puzzle title: </label>
